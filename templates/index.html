@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="home">
+    <h2>👋 Hello, I'm Francis Ndegwa</h2>
+    <p class="intro">
+        A passionate tech enthusiast with a background in Mathematics and Computing.<br>
+        I specialize in web development, AI annotation, and digital solutions that drive results.
+    </p>
+
+    <div class="cta-buttons">
+        <a href="{{ url_for('static', filename='pdfs/resume.pdf') }}" class="btn" download>📄 Download Resume</a>
+        <a href="{{ url_for('contact') }}" class="btn secondary">📬 Contact Me</a>
+    </div>
+
+    <div class="avatar-container">
+        <img src="{{ url_for('static', filename='img/avatar.jpg') }}" alt="Francis Ndegwa" class="avatar">
+    </div>
+</section>
+{% endblock %}

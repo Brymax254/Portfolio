@@ -1,0 +1,199 @@
+/* ====== GENERAL STYLING ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #222222;
+    transition: background-color 0.3s, color 0.3s;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ====== HEADER & NAVIGATION ====== */
+header {
+    background-color: #f4f4f4;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #007BFF;
+}
+
+/* ====== RESUME BUTTON ====== */
+.resume-btn {
+    background-color: #007BFF;
+    color: #fff !important;
+    border-radius: 4px;
+    padding: 0.5rem 0.8rem;
+    font-weight: bold;
+}
+
+.resume-btn:hover {
+    background-color: #0056b3;
+}
+
+/* ====== DARK MODE TOGGLE ====== */
+.toggle-theme {
+    margin-left: 1rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* ====== MAIN CONTENT ====== */
+main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: auto;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* ====== FOOTER ====== */
+footer {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* ====== DARK MODE STYLES ====== */
+body.dark {
+    background-color: #121212;
+    color: #eeeeee;
+}
+
+body.dark header {
+    background-color: #1f1f1f;
+    border-bottom-color: #333;
+}
+
+body.dark footer {
+    background-color: #1f1f1f;
+    border-top-color: #333;
+    color: #aaa;
+}
+
+body.dark nav a {
+    color: #cccccc;
+}
+
+body.dark nav a:hover {
+    color: #66b2ff;
+}
+
+body.dark .resume-btn {
+    background-color: #2196F3;
+}
+
+body.dark .resume-btn:hover {
+    background-color: #0b7dda;
+}
+
+/* ====== RESPONSIVE DESIGN ====== */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .toggle-theme {
+        margin-top: 1rem;
+    }
+}
