@@ -1,19 +1,1485 @@
-{% extends "base.html" %}
-{% block content %}
-<section class="home">
-    <h2>👋 Hello, I'm Francis Ndegwa</h2>
-    <p class="intro">
-        A passionate tech enthusiast with a background in Mathematics and Computing.<br>
-        I specialize in web development, AI annotation, and digital solutions that drive results.
-    </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francis Ndegwa | Tech Professional Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Color System with Vibrant Accents */
+        :root {
+            /* Vibrant Color Palette */
+            --primary: #e63946;       /* Bold red for maximum impact */
+            --primary-dark: #d90429;  /* Deeper red */
+            --primary-light: #f8ad9d; /* Soft red */
+            --secondary: #2a9d8f;     /* Complementary teal */
+            --accent: #ff9f1c;        /* Golden accent */
+            --highlight: #f1faee;     /* Light cream background */
 
-    <div class="cta-buttons">
-        <a href="{{ url_for('static', filename='pdfs/resume.pdf') }}" class="btn" download>📄 Download Resume</a>
-        <a href="{{ url_for('contact') }}" class="btn secondary">📬 Contact Me</a>
-    </div>
+            /* Light Mode Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --text-tertiary: #6c757d;
 
-    <div class="avatar-container">
-        <img src="{{ url_for('static', filename='img/avatar.jpg') }}" alt="Francis Ndegwa" class="avatar">
+            /* Layout */
+            --header-height: 80px;
+            --section-spacing: clamp(5rem, 7vw, 8rem);
+            --container-width: min(1600px, 92vw);
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 24px;
+
+            /* Effects */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+            --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+            /* Typography */
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-display: 'Montserrat', -apple-system, sans-serif;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--header-height);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            letter-spacing: -0.03em;
+        }
+
+        h2 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: clamp(1.7rem, 4vw, 2.5rem);
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: clamp(1rem, 1.2vw, 1.2rem);
+            line-height: 1.7;
+        }
+
+        section {
+            padding: var(--section-spacing) 0;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition-base);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-base);
+        }
+
+        .logo span {
+            color: var(--text-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--primary-dark);
+        }
+
+        .logo:hover span {
+            transform: rotate(15deg);
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            font-family: var(--font-sans);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            transition: var(--transition-base);
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: var(--transition-base);
+            border-radius: 2px;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1.1rem 2.2rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            transition: var(--transition-bounce);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(230, 57, 70, 0.1);
+            transform: translateY(-5px);
+        }
+
+        /* Hero Section - Completely Redesigned */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: calc(var(--header-height) + 2rem) 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(to right, var(--text-primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero h2.sub-heading {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .hero p.intro-paragraph {
+            font-size: clamp(1.1rem, 1.3vw, 1.3rem);
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .hero-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px; /* Added fixed width for container */
+    height: 400px; /* Added fixed height for container */
+    margin-left: auto; /* Push to the right side */
+}
+
+.hero-image {
+    width: 100%; /* Adjusted from 500% to 80% */
+    max-width: 500px; /* Reduced from 100px to 350px */
+    height: auto;
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    z-index: 1;
+    animation: float 6s ease-in-out infinite;
+    border: 3px solid rgba(230, 57, 70, 0.1);
+    object-fit: cover; /* Ensure image maintains aspect ratio */
+}
+
+.hero-image-bg {
+    position: absolute;
+    width: 80%; /* Match image width */
+    height: 80%; /* Match image height */
+    background: var(--primary);
+    border-radius: var(--border-radius-xl);
+    top: 30px; /* Adjusted from 20px */
+    left: 30px; /* Adjusted from 20px */
+    z-index: 0;
+    opacity: 0.1;
+}
+
+.hero-pattern {
+    position: absolute;
+    width: 80%; /* Match image width */
+    height: 80%; /* Match image height */
+    background-image: radial-gradient(var(--primary) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.1;
+    z-index: 0;
+    top: 15px;
+    left: 15px;
+}
+
+        /* Key Highlights Section */
+        .highlights {
+            background: var(--bg-secondary);
+            padding: 5rem 0;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .highlight-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--primary);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .highlight-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* About Section - Redesigned */
+        .about {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 80;
+            display: block;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;974595
+            left: 0;
+            width: 100%;
+            height: 80%;
+            background: rgba(230, 57, 70, 0.1);
+            z-index: 1;
+        }
+
+        .about-content {
+            position: relative;
+        }
+
+        .about-content h2 {
+            margin-bottom: 2rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-md);
+            transition: var(--transition-base);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .skill-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: rgba(230, 57, 70, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        /* Experience Section - Redesigned */
+        .experience {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .experience-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .experience-timeline {
+            position: relative;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 3px solid var(--primary);
+        }
+
+        .timeline-content {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .timeline-description ul {
+            padding-left: 1.5rem;
+        }
+
+        .timeline-description li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* Projects Section - Redesigned */
+        .projects {
+            position: relative;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .project-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-base);
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            background: rgba(230, 57, 70, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: auto;
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-base);
+        }
+
+        .project-link:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Contact Section - Redesigned */
+        .contact {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            background: rgba(230, 57, 70, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+        }
+
+        .contact-form {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: var(--border-radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition-base);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+            background: var(--bg-primary);
+        }
+
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            width: 100%;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            transition: var(--transition-base);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-container,
+            .about-container,
+            .experience-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-image-container {
+                order: -1;
+                margin-bottom: 3rem;
+            }
+
+            .about-image {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+        .mb-4 { margin-bottom: 4rem; }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mt-4 { margin-top: 4rem; }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            display: inline-block;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">F<span>N</span></a>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <a href="#" class="btn btn-secondary" download>
+                    <i class="fas fa-download"></i> Resume
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section - Completely Redesigned -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="animate">Hi, I'm <span>Francis Ndegwa</span></h1>
+                <h2 class="sub-heading animate">Mathematics & Computing Graduate | Tech Professional</h2>
+                <p class="intro-paragraph animate">
+                    I transform complex problems into elegant digital solutions. With expertise in software development,
+                    data analysis, and system optimization, I bridge the gap between mathematics and technology to
+                    create impactful results.
+                </p>
+                <div class="hero-btns animate">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-code"></i> View My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane"></i> Let's Connect
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image-container animate">
+    <div class="hero-pattern"></div>
+    <div class="hero-image-bg"></div>
+    <img src="https://iili.io/FeZvhF4.jpg" alt="Francis Ndegwa" class="hero-image">
+</div>
+        </div>
+    </section>
+
+    <!-- Key Highlights Section -->
+    <section class="highlights">
+        <div class="container">
+            <div class="section-title animate">
+                <h2>Why Work With Me?</h2>
+            </div>
+            <div class="highlights-grid">
+                <div class="highlight-card animate" style="animation-delay: 0.1s">
+                    <div class="highlight-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Fast Learner</h3>
+                    <p>Quickly adapt to new technologies and frameworks to deliver results faster</p>
+                </div>
+                <div class="highlight-card animate" style="animation-delay: 0.2s">
+                    <div class="highlight-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Data-Driven</h3>
+                    <p>Strong analytical skills to extract insights and optimize performance</p>
+                </div>
+                <div class="highlight-card animate" style="animation-delay: 0.3s">
+                    <div class="highlight-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Problem Solver</h3>
+                    <p>Creative approach to overcoming technical challenges</p>
+                </div>
+                <div class="highlight-card animate" style="animation-delay: 0.4s">
+                    <div class="highlight-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Team Player</h3>
+                    <p>Collaborative mindset with excellent communication skills</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section - Redesigned -->
+    <section id="about" class="about">
+        <div class="container about-container">
+            <div class="about-image animate">
+                <img src="https://iili.io/FeZvhF4.jpg">
+            </div>
+            <div class="about-content animate">
+                <h2>About Me</h2>
+                <p>
+                    As a recent graduate with a BSc in Mathematics and Computing, I bring a unique combination of
+                    analytical thinking and technical expertise to every project. My passion lies in creating efficient
+                    software solutions and extracting valuable insights from complex data sets.
+                </p>
+                <p>
+                    With experience across corporate environments and academic settings, I've developed a versatile
+                    skill set that includes full-stack development, data analysis, and system optimization. I thrive
+                    in challenging environments where I can apply both my technical skills and problem-solving abilities.
+                </p>
+                <div class="skills-grid">
+                    <div class="skill-item animate" style="animation-delay: 0.1s">
+                        <div class="skill-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div>
+                            <h4>Python Development</h4>
+                            <p>Flask, Django, Data Analysis</p>
+                        </div>
+                    </div>
+                    <div class="skill-item animate" style="animation-delay: 0.2s">
+                        <div class="skill-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div>
+                            <h4>Database Systems</h4>
+                            <p>SQL, MySQL, Data Modeling</p>
+                        </div>
+                    </div>
+                    <div class="skill-item animate" style="animation-delay: 0.3s">
+                        <div class="skill-icon">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <div>
+                            <h4>Web Development</h4>
+                            <p>JavaScript, HTML/CSS, React</p>
+                        </div>
+                    </div>
+                    <div class="skill-item animate" style="animation-delay: 0.4s">
+                        <div class="skill-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div>
+                            <h4>Data Analysis</h4>
+                            <p>Pandas, NumPy, Visualization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section - Redesigned -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-title animate">
+                <h2>Professional Experience</h2>
+            </div>
+            <div class="experience-container">
+                <div class="experience-timeline">
+                    <div class="timeline-item animate">
+                        <div class="timeline-content">
+                            <span class="timeline-date">August 2024 – Present</span>
+                            <h3>Operations Manager</h3>
+                            <span class="timeline-company">Mukurweini Oil Ltd, Nyeri</span>
+                            <div class="timeline-description">
+                                <ul>
+                                    <li>Spearheaded operational optimization initiatives, improving team efficiency by 35%</li>
+                                    <li>Led implementation of advanced IT systems, enhancing digital workflows across departments</li>
+                                    <li>Managed cross-departmental projects, ensuring deadlines and quality standards</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item animate">
+                        <div class="timeline-content">
+                            <span class="timeline-date">April 2024 – August 2024</span>
+                            <h3>IT Director & E-commerce Manager</h3>
+                            <span class="timeline-company">Kiba Housing, Westlands</span>
+                            <div class="timeline-description">
+                                <ul>
+                                    <li>Directed digital strategy, reducing operational costs by 25% through technology integration</li>
+                                    <li>Led IT infrastructure upgrades, enhancing system security and reducing downtime by 40%</li>
+                                    <li>Managed process automation initiatives that saved 15+ hours weekly</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item animate">
+                        <div class="timeline-content">
+                            <span class="timeline-date">August 2024 – October 2024</span>
+                            <h3>ICT Intern, Department of Education</h3>
+                            <span class="timeline-company">County Government of Nyeri</span>
+                            <div class="timeline-description">
+                                <ul>
+                                    <li>Integrated technology into education programs, improving administrative efficiency</li>
+                                    <li>Supported Elimu Fund initiatives through technical implementation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="experience-timeline">
+                    <div class="timeline-item animate">
+                        <div class="timeline-content">
+                            <span class="timeline-date">April 2024 – June 2024</span>
+                            <h3>ICT Intern</h3>
+                            <span class="timeline-company">County Government of Nyeri</span>
+                            <div class="timeline-description">
+                                <ul>
+                                    <li>Improved IT infrastructure and data security through system updates</li>
+                                    <li>Assisted in developing IT policies to enhance service delivery</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item animate">
+                        <div class="timeline-content">
+                            <span class="timeline-date">April 2021 – September 2021</span>
+                            <h3>Junior E-commerce Manager</h3>
+                            <span class="timeline-company">Kiba Housing, Chaka</span>
+                            <div class="timeline-description">
+                                <ul>
+                                    <li>Increased online sales by 20% through e-commerce optimization</li>
+                                    <li>Managed IT troubleshooting, improving system uptime by 30%</li>
+                                    <li>Refined digital marketing strategies for better engagement</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item animate">
+                        <div class="timeline-content">
+                            <span class="timeline-date">2020 - 2021</span>
+                            <h3>Freelance Developer</h3>
+                            <span class="timeline-company">Brymax Studios</span>
+                            <div class="timeline-description">
+                                <ul>
+                                    <li>Designed posters and marketing materials for clients</li>
+                                    <li>Developed custom websites for creative industry clients</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section - Updated with Real Projects -->
+<section id="projects" class="projects">
+    <div class="container">
+        <div class="section-title animate">
+            <h2>Professional Projects</h2>
+            <p>Real-world solutions I've developed for businesses and organizations</p>
+        </div>
+        <div class="projects-grid">
+            <!-- Brymax POS System -->
+            <div class="project-card animate">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         alt="Brymax POS System">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Brymax POS System</h3>
+                    <p class="project-description">
+                        A comprehensive desktop point-of-sale system with inventory management, sales tracking,
+                        and reporting features. Developed for Brymax Enterprise to streamline retail operations.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">.NET</span>
+                        <span class="project-tag">Windows Forms</span>
+                        <span class="project-tag">SQL Database</span>
+                        <span class="project-tag">C#</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-desktop"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brymax Legacy Web POS -->
+            <div class="project-card animate">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         alt="Brymax Web POS">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Brymax Web POS System</h3>
+                    <p class="project-description">
+                        Modern web-based POS with mobile-responsive admin panel, real-time inventory tracking,
+                        and dashboard analytics. Currently in development to replace the desktop version.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML/CSS/JS</span>
+                        <span class="project-tag">.NET Core</span>
+                        <span class="project-tag">Flask</span>
+                        <span class="project-tag">Responsive</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-code-branch"></i> In Development
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mukurweini Oil Farmers System -->
+            <div class="project-card animate">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         alt="Farmer Registration System">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Farmer Registration System</h3>
+                    <p class="project-description">
+                        Web-based data entry system for Mukurweini Oil to register sunflower farmers,
+                        capturing personal details, location data, and crop information with secure forms.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">Web Forms</span>
+                        <span class="project-tag">Data Validation</span>
+                        <span class="project-tag">Report Generation</span>
+                        <span class="project-tag">SQL</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-database"></i> View Reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Field Officers Mapping -->
+            <div class="project-card animate">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         alt="Field Officers Mapping">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Field Officers Visualization</h3>
+                    <p class="project-description">
+                        GIS mapping solution showing Mukurweini Oil field officers by region with interactive
+                        dashboard displaying farmer distribution and key metrics for decision-making.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Pandas</span>
+                        <span class="project-tag">Data Visualization</span>
+                        <span class="project-tag">GIS</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-map-marked-alt"></i> View Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Electronics Shop Web App -->
+            <div class="project-card animate">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         alt="Electronics Shop">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Electronics E-Commerce</h3>
+                    <p class="project-description">
+                        Web application showcasing electronics products with direct WhatsApp integration.
+                        Includes admin panel for inventory management and ready for deployment.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">Flask</span>
+                        <span class="project-tag">WhatsApp API</span>
+                        <span class="project-tag">Admin Panel</span>
+                        <span class="project-tag">E-Commerce</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-whatsapp"></i> Test Integration
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Good Man Safari -->
+            <div class="project-card animate">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                         alt="Good Man Safari">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Good Man Safari</h3>
+                    <p class="project-description">
+                        Tour and travel platform showcasing safari packages with inquiry forms and contact
+                        integration. Features responsive design and complete branding implementation.
+                    </p>
+                    <div class="project-tags">
+                        <span class="project-tag">WordPress</span>
+                        <span class="project-tag">HTML/CSS</span>
+                        <span class="project-tag">Booking System</span>
+                        <span class="project-tag">Responsive</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fas fa-safari"></i> Visit Site
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
-{% endblock %}
+
+    <!-- Contact Section - Redesigned -->
+    <section id="contact" class="contact">
+        <div class="container contact-container">
+            <div class="contact-info animate">
+                <h2>Get In Touch</h2>
+                <p>
+                    I'm currently looking for new opportunities and would love to hear from you.
+                    Whether you have a question or just want to say hi, I'll get back to you as soon as possible!
+                </p>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email</h3>
+                        <p>francisbrymax@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Phone</h3>
+                        <p>+254 759 234 580</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>WhatsApp</h3>
+                        <p>+254 759 234 580</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Location</h3>
+                        <p>Nyeri, Kenya</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form animate">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="footer-logo">F<span>N</span></a>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <p class="copyright">© 2025 Francis Ndegwa. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        animateElements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+            }
+        });
+    </script>
+</body>
+</html>
